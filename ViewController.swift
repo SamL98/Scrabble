@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController, TileDelegate {
+class ViewController: UIViewController, TileDelegate, UIScrollViewDelegate {
     
     @IBOutlet weak var boardView: BoardView!
     @IBOutlet weak var rackView: RackView!
@@ -30,22 +30,40 @@ class ViewController: UIViewController, TileDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /*boardView.minimumZoomScale = 1.0
+        boardView.maximumZoomScale = 2.0
+        boardView.contentSize = boardView.bounds.size
+        boardView.clipsToBounds = true
+        
+        boardView.delegate = self
+        
+        let doubleTap = UITapGestureRecognizer(target: self,
+                                               action: #selector(ViewController.boardDoubleTap(tap:)))
+        
+        doubleTap.numberOfTapsRequired = 2
+        
+        boardView.addGestureRecognizer(doubleTap)*/
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
-        let rowNumberContainer = TileContainer(dimensions: [Constants.NR], view: rowNumberView),
-            colNumberContainer = TileContainer(dimensions: [Constants.NC], view: columnNumberView, orientation: 0)
+        let showNumbers = false
         
-        for i in 0..<Constants.NR {
-            let tile = Tile(container: rowNumberContainer, indices: [i], text: "\(i)")
-            rowNumberContainer.create(tile: tile, at: [i], interactable: false)
-        }
-        
-        for i in 0..<Constants.NC {
-            let tile = Tile(container: colNumberContainer, indices: [i], text: "\(i)")
-            colNumberContainer.create(tile: tile, at: [i], interactable: false)
+        if showNumbers {
+            let rowNumberContainer = TileContainer(dimensions: [Constants.NR], view: rowNumberView),
+                colNumberContainer = TileContainer(dimensions: [Constants.NC], view: columnNumberView, orientation: 0)
+            
+            for i in 0..<Constants.NR {
+                let tile = Tile(container: rowNumberContainer, indices: [i], text: "\(i)")
+                rowNumberContainer.create(tile: tile, at: [i], interactable: false)
+            }
+            
+            for i in 0..<Constants.NC {
+                let tile = Tile(container: colNumberContainer, indices: [i], text: "\(i)")
+                colNumberContainer.create(tile: tile, at: [i], interactable: false)
+            }
         }
         
         let bag = Bag()
@@ -86,6 +104,10 @@ class ViewController: UIViewController, TileDelegate {
         NotificationCenter.default.removeObserver(self)
     }
     
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return boardView.contentView
+    }
+    
     @objc
     func playerChanged(_ notification: Notification) {
         guard let userInfo = notification.userInfo as? [String:AnyObject],
@@ -117,7 +139,28 @@ class ViewController: UIViewController, TileDelegate {
         tile.view!.move(to: coords)
     }
     
-    @objc func tilePan(pan: UIPanGestureRecognizer) {
+    @objc
+    func boardDoubleTap(tap: UITapGestureRecognizer) {
+        if boardView.zoomScale == 1.0 {
+            let pos = tap.location(in: boardView),
+                newW = boardView.frame.width / 2.0,
+                newH = boardView.frame.height / 2.0
+            
+            boardView.zoom(to: CGRect(x: pos.x - newW / 2.0,
+                                       y: pos.y - newH / 2.0,
+                                       width: newW,
+                                       height: newH), animated: true)
+        }
+        else {
+            boardView.zoom(to: CGRect(x: 0.0,
+                                       y: 0.0,
+                                       width: boardView.frame.width,
+                                       height: boardView.frame.height), animated: true)
+        }
+    }
+    
+    @objc
+    func tilePan(pan: UIPanGestureRecognizer) {
         guard let tileView = pan.view as? TileView else {
             return
         }
@@ -127,16 +170,14 @@ class ViewController: UIViewController, TileDelegate {
             break
             
         case .changed:
-            tileView.translate(by: pan.translation(in: view))
-            resize(tileView: tileView)
-            
-            /*for squareView in boardView.squareViews {
-                if squareView?.frame.contains(pan.location(in: view)) ?? false {
-                    squareView?.highlight()
-                    break
-                }
+            /*if let _ = tileView.container as? BoardView {
+                tileView.removeFromSuperview()
+                view.addSubview(tileView)
+                tileView.frame = view.convert(tileView.frame, from: boardView.contentView)
             }*/
             
+            tileView.translate(by: pan.translation(in: view))
+            resize(tileView: tileView)
             break
             
         case .cancelled:
@@ -207,6 +248,16 @@ class ViewController: UIViewController, TileDelegate {
         // First let the old container know that there is no longer a tile at the old position.
         tile.container?.nullify(at: tile.idxs)
         
+        /*if let _ = newContainer as? Board {
+            newFrame = newContainer?.view.contentView.convert(newFrame!, from: view)
+            tileView.removeFromSuperview()
+            newContainer?.view.contentView.addSubview(tileView)
+        }
+        else {
+            tileView.removeFromSuperview()
+            view.addSubview(tileView)
+        }*/
+        
         // Then let the new container know that we now have a tile in the new position.
         tile.container = newContainer
         tile.idxs = newIdxs!
@@ -233,15 +284,22 @@ class ViewController: UIViewController, TileDelegate {
     
     @IBAction func recallTiles(sender: UIButton) {
         for tile in game.board.placedTiles {
-            var coords = rackView.coordinates(for: tile.rackIdxs!)
-            coords.x += rackView.frame.minX
-            coords.y += rackView.frame.minY
-            
-            if let tileView = tile.view {
-                tileView.move(to: coords)
-                resize(tileView: tileView)
-                tileView.move(to: coords)
-                snap(tileView: tileView)
+            // find an open spot on the rack.
+            for idx in 0..<userPlayer.rack.dimensions[0] {
+                if !userPlayer.rack.indicesOccupied([idx]) {
+                    tile.rackIdxs = [idx]
+                    
+                    var coords = rackView.coordinates(for: tile.rackIdxs!)
+                    coords.x += rackView.frame.minX
+                    coords.y += rackView.frame.minY
+                    
+                    if let tileView = tile.view {
+                        tileView.move(to: coords)
+                        resize(tileView: tileView)
+                        tileView.move(to: coords)
+                        snap(tileView: tileView)
+                    }
+                }
             }
         }
     }

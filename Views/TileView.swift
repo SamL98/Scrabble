@@ -35,6 +35,7 @@ class TileView: UIView {
         
         label.textAlignment = .center
         label.text = tile.text
+        label.textColor = UIColor.black
         
         self.addSubview(label)
         

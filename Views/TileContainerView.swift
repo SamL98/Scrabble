@@ -10,12 +10,16 @@ import UIKit
 
 class TileContainerView: UIScrollView {
 
+    var contentView: UIView!
     var dimensions: [Int]!
     var orientation: Int!
     var squareViews: VarDimArray<SquareView>!
     var tileSize: CGFloat!
 
     func initialize(container: TileContainer) -> Void {
+        self.contentView = UIView(frame: self.bounds)
+        self.addSubview(contentView)
+        
         self.dimensions = container.tiles.dimensions
         self.orientation = container.orientation
         self.squareViews = VarDimArray<SquareView>(dimensions: dimensions)
@@ -100,7 +104,7 @@ class TileContainerView: UIScrollView {
         
         // NOTE: For this to make sense, makeSquareAt must be called with the current order.
         self.squareViews[indices] = squareView
-        self.addSubview(squareView);
+        self.contentView.addSubview(squareView);
     }
 
 }

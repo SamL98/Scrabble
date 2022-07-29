@@ -36,6 +36,22 @@ class Board: TileContainer {
         self.letterMultipliers = VarDimArray<Int>(dimensions: dimensions, defaultValue: 1)
         self.wordMultipliers = VarDimArray<Int>(dimensions: dimensions, defaultValue: 1)
         
+        for tileIdxs in Constants.TRIPLE_WORD_IDXS {
+            self.wordMultipliers[tileIdxs] = 3
+        }
+        
+        for tileIdxs in Constants.DOUBLE_WORD_IDXS {
+            self.wordMultipliers[tileIdxs] = 2
+        }
+        
+        for tileIdxs in Constants.TRIPLE_LETTER_IDXS {
+            self.letterMultipliers[tileIdxs] = 3
+        }
+        
+        for tileIdxs in Constants.DOUBLE_LETTER_IDXS {
+            self.letterMultipliers[tileIdxs] = 2
+        }
+        
         super.init(dimensions: dimensions, view: boardView)
     }
     
@@ -92,7 +108,7 @@ class Board: TileContainer {
         placedTiles = []
     }
     
-    func isValid() -> Bool {
+    func isValid(firstMove: Bool) -> Bool {
         // Make sure that the placedTiles lie on a line and there are no gaps.
         if placedTiles.count == 0 {
             return false
@@ -147,7 +163,7 @@ class Board: TileContainer {
             }
         }
         
-        return true
+        return !firstMove || indicesOccupied([7,7])
     }
     
     func getExtent(at idxs: [Int], direction: Int, going: Int) -> Int {
@@ -191,7 +207,17 @@ class Board: TileContainer {
         
         if dir == nil {
             if placedTiles.count == 1 {
-                dir = 0 // Choose an arbitrary direction.
+                for d in 0..<2 {
+                    for delta in 0..<2 {
+                        var tmpIxs = placedTiles[0].idxs
+                        tmpIxs[d] += 2 * delta - 1
+                        
+                        if indicesValidAndOccupied(tmpIxs) {
+                            dir = d
+                            break
+                        }
+                    }
+                }
             }
             else if placedTiles[0].idxs[0] == placedTiles[1].idxs[0] {
                 dir = 1

@@ -25,7 +25,7 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QBG-pt-kWx" customClass="RackView" customModule="Scrabble" customModuleProvider="target">
-                                <rect key="frame" x="16" y="33.5" width="17.5" height="262.5"/>
+                                <rect key="frame" x="16" y="8.5" width="0.5" height="287.5"/>
                                 <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0A-TW-h7f" customClass="RackView" customModule="Scrabble" customModuleProvider="target">
@@ -43,14 +43,14 @@
                                 </connections>
                             </button>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Eu8-w8-PDE" customClass="BoardView" customModule="Scrabble" customModuleProvider="target">
-                                <rect key="frame" x="41.5" y="33.5" width="262.5" height="262.5"/>
+                                <rect key="frame" x="16.5" y="8.5" width="287.5" height="287.5"/>
                                 <color key="backgroundColor" systemColor="separatorColor"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="Eu8-w8-PDE" secondAttribute="height" multiplier="1:1" id="Yd5-H0-dUH"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HSF-OR-tlb" customClass="RackView" customModule="Scrabble" customModuleProvider="target">
-                                <rect key="frame" x="41.5" y="8" width="262.5" height="17.5"/>
+                                <rect key="frame" x="16.5" y="8" width="287.5" height="0.5"/>
                                 <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWM-cP-7Kw">
@@ -76,7 +76,7 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="QBG-pt-kWx" firstAttribute="width" secondItem="Eu8-w8-PDE" secondAttribute="width" multiplier="0.0666666" id="03a-7E-1Ez"/>
+                            <constraint firstItem="QBG-pt-kWx" firstAttribute="width" secondItem="Eu8-w8-PDE" secondAttribute="width" multiplier="0.001" id="03a-7E-1Ez"/>
                             <constraint firstItem="HSF-OR-tlb" firstAttribute="trailing" secondItem="Eu8-w8-PDE" secondAttribute="trailing" id="8wS-Ej-aV5"/>
                             <constraint firstItem="px8-D1-30J" firstAttribute="top" secondItem="kWM-cP-7Kw" secondAttribute="bottom" constant="8" id="B1O-Yt-xVf"/>
                             <constraint firstItem="kWM-cP-7Kw" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="Ej3-v1-lVl"/>
@@ -85,18 +85,18 @@
                             <constraint firstItem="kWM-cP-7Kw" firstAttribute="top" secondItem="W0A-TW-h7f" secondAttribute="bottom" constant="7.5" id="G5V-bE-njV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Dth-tc-1kE" secondAttribute="trailing" constant="14" id="Gg1-Ce-V3V"/>
                             <constraint firstItem="C9l-Zm-ShH" firstAttribute="top" secondItem="Eu8-w8-PDE" secondAttribute="bottom" constant="8" id="HgO-Ap-hKn"/>
-                            <constraint firstItem="QBG-pt-kWx" firstAttribute="top" secondItem="HSF-OR-tlb" secondAttribute="bottom" constant="8" id="ImG-Oc-LOW"/>
+                            <constraint firstItem="QBG-pt-kWx" firstAttribute="top" secondItem="HSF-OR-tlb" secondAttribute="bottom" id="ImG-Oc-LOW"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Eu8-w8-PDE" secondAttribute="trailing" constant="16" id="JX8-WA-okw"/>
                             <constraint firstItem="C9l-Zm-ShH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="P4n-U1-24f"/>
                             <constraint firstItem="HSF-OR-tlb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="PPx-9Y-lL3"/>
-                            <constraint firstItem="Eu8-w8-PDE" firstAttribute="leading" secondItem="QBG-pt-kWx" secondAttribute="trailing" constant="8" id="PdJ-H0-K9v"/>
+                            <constraint firstItem="Eu8-w8-PDE" firstAttribute="leading" secondItem="QBG-pt-kWx" secondAttribute="trailing" id="PdJ-H0-K9v"/>
                             <constraint firstItem="W0A-TW-h7f" firstAttribute="width" secondItem="W0A-TW-h7f" secondAttribute="height" multiplier="7:1" id="QZF-j5-Z9N"/>
                             <constraint firstItem="Dth-tc-1kE" firstAttribute="top" secondItem="W0A-TW-h7f" secondAttribute="bottom" constant="36.5" id="Uog-HP-Vgt"/>
                             <constraint firstItem="QBG-pt-kWx" firstAttribute="bottom" secondItem="Eu8-w8-PDE" secondAttribute="bottom" id="WJv-Ur-cpP"/>
                             <constraint firstItem="HSF-OR-tlb" firstAttribute="leading" secondItem="Eu8-w8-PDE" secondAttribute="leading" id="cGa-Tu-a2G"/>
                             <constraint firstItem="kWM-cP-7Kw" firstAttribute="height" secondItem="umD-pa-5BM" secondAttribute="height" multiplier="0.7" id="cMF-zc-MKv"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="umD-pa-5BM" secondAttribute="trailing" constant="14" id="dKO-FY-HBr"/>
-                            <constraint firstItem="HSF-OR-tlb" firstAttribute="height" secondItem="Eu8-w8-PDE" secondAttribute="height" multiplier="0.0666667" id="fuf-aR-Rua"/>
+                            <constraint firstItem="HSF-OR-tlb" firstAttribute="height" secondItem="Eu8-w8-PDE" secondAttribute="height" multiplier="0.001" id="fuf-aR-Rua"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="W0A-TW-h7f" secondAttribute="trailing" constant="16" id="hTL-hP-bqI"/>
                             <constraint firstItem="px8-D1-30J" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="k9x-jf-pnP"/>
                             <constraint firstItem="Dth-tc-1kE" firstAttribute="height" secondItem="umD-pa-5BM" secondAttribute="height" id="kCD-Q8-5WW"/>

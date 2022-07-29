@@ -10,6 +10,8 @@ import UIKit
 
 class Game: NSObject {
     
+    var firstMove: Bool
+    
     var playerIdx: Int
     var currentPlayer: Player {
         get {
@@ -26,7 +28,9 @@ class Game: NSObject {
     
     var onResume: (() -> Void)? = nil
     
-    init(board: Board, bag: Bag) {        
+    init(board: Board, bag: Bag) {
+        self.firstMove = true
+        
         self.playerIdx = 0
         self.players = []
         self.board =  board
@@ -75,7 +79,7 @@ class Game: NSObject {
     
     func nextPlayer() -> Player {
         playerIdx = (playerIdx + 1) % players.count
-        return players[playerIdx]
+        return players[playerIdx] 
     }
     
     func start() {
@@ -87,7 +91,7 @@ class Game: NSObject {
         // 2. Freeze the new tiles in the board
         // 3. Replenish the rack.
         
-        if !board.isValid() {
+        if !board.isValid(firstMove: firstMove) {
             print("Board is in an invalid state")
             return false
         }
@@ -114,7 +118,9 @@ class Game: NSObject {
             board.set(tile: tile, at: tile.idxs, place: false)
         }
         
+        firstMove = false
         nextPlayer().move()
+        
         return true
     }
 

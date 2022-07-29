@@ -16,8 +16,8 @@ struct Constants {
     
     static let LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     static let INIT_LETTER_COUNTS: [Int] = [
-        9, 2, 2, 4, 12, 2, 3, 2, 9, 9, 1, 4, 2,
-        6, 8, 2, 1, 6, 4, 4, 2, 2, 1, 2, 1, 2
+        9, 2, 2, 4, 12, 2, 3, 2, 9, 1, 1, 4, 2,
+        6, 8, 2, 1, 6, 4, 6, 4, 2, 2, 1, 2, 1, 2, 2
     ]
     static let LETTER_SCORES: [Character:Int] = [
         "A": 1,

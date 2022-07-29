@@ -20,14 +20,16 @@ class TileContainer: NSObject {
     var view: TileContainerView
     var delegate: TileDelegate?
     
-    init(dimensions: [Int], view: TileContainerView, orientation: Int = 1) {
+    init(dimensions: [Int], view: TileContainerView, orientation: Int = 1, displayTiles: Bool = true) {
         self.dimensions = dimensions
         self.tiles = VarDimArray<Tile>(dimensions: dimensions)
         self.view = view
         self.orientation = orientation
         super.init()
         
-        view.initialize(container: self)
+        if displayTiles {
+            view.initialize(container: self)
+        }
     }
     
     func numTiles() -> Int {

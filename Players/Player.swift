@@ -13,12 +13,13 @@ class Player: NSObject {
     var game: Game
     var rack: Rack
     var score: Int
-    var debugging = true
+    var displayTiles: Bool
     
-    init(game: Game, rackView: RackView) {
+    init(game: Game, rackView: RackView, displayTiles: Bool = true) {
         self.game = game
-        self.rack = Rack(view: rackView)
+        self.rack = Rack(view: rackView, displayTiles: displayTiles)
         self.score = 0
+        self.displayTiles = displayTiles
         
         super.init()
         self.game.players.append(self)
@@ -28,12 +29,30 @@ class Player: NSObject {
         }
     }
     
+    func printRack() {
+        var rackString = ""
+        
+        for i in 0..<Constants.NTILES {
+            if rack.tiles[[i]] == nil {
+                rackString += "_ "
+            }
+            else {
+                rackString += "\(rack.tiles[[i]]!.letter) "
+            }
+        }
+        
+        print(rackString)
+    }
+    
     func setNewTile(at idxs: [Int]) -> Tile? {
         if let letter = game.bag.takeRandomLetter() {
             let tile = Tile(container: rack, indices: idxs, letter: letter)
             
             rack.set(tile: tile, at: idxs)
-            rack.create(tile: tile, at: idxs, interactable: isUser())
+            
+            if displayTiles {
+                rack.create(tile: tile, at: idxs, interactable: isUser())
+            }
             
             //broadcastTile(tile)
             return tile

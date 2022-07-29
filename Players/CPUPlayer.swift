@@ -10,11 +10,17 @@ import UIKit
 
 class CPUPlayer: Player {
     
+    override init(game: Game, rackView: RackView, displayTiles: Bool = true) {
+        super.init(game: game, rackView: rackView, displayTiles: false)
+    }
+    
     override func isUser() -> Bool {
         return false
     }
     
     override func move() {
+        printRack()
+        
         broadcastSelf()
         
         // 1. For all of the valid positions (and directions), get the words

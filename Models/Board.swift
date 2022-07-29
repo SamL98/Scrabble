@@ -120,10 +120,12 @@ class Board: TileContainer {
                     tmpIxs[dir] += 2 * delta - 1
                     
                     if indicesValidAndOccupied(tmpIxs) {
-                        return true
+                        return !firstMove || indicesOccupied([7,7])
                     }
                 }
             }
+            
+            return false
         }
         
         var ix: Int

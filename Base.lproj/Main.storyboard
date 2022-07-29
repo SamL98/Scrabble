@@ -29,14 +29,14 @@
                                 <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0A-TW-h7f" customClass="RackView" customModule="Scrabble" customModuleProvider="target">
-                                <rect key="frame" x="16" y="353" width="288" height="41.5"/>
+                                <rect key="frame" x="16" y="345" width="288" height="1"/>
                                 <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" secondItem="W0A-TW-h7f" secondAttribute="height" multiplier="7:1" id="OQl-NW-izK"/>
+                                    <constraint firstAttribute="height" constant="1" id="2Y5-Bd-AcF"/>
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="umD-pa-5BM">
-                                <rect key="frame" x="257" y="402.5" width="49" height="30"/>
+                                <rect key="frame" x="257" y="354" width="49" height="30"/>
                                 <state key="normal" title="Submit"/>
                                 <connections>
                                     <action selector="submitMoveWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Iy3-uf-GkN"/>
@@ -54,19 +54,19 @@
                                 <color key="backgroundColor" systemColor="scrollViewTexturedBackgroundColor"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kWM-cP-7Kw">
-                                <rect key="frame" x="16" y="402" width="42" height="21"/>
+                                <rect key="frame" x="16" y="353.5" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="px8-D1-30J">
-                                <rect key="frame" x="16" y="431" width="42" height="21"/>
+                                <rect key="frame" x="16" y="382.5" width="42" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Dth-tc-1kE">
-                                <rect key="frame" x="264" y="431" width="42" height="30"/>
+                                <rect key="frame" x="264" y="382.5" width="42" height="30"/>
                                 <state key="normal" title="Recall"/>
                                 <connections>
                                     <action selector="recallTilesWithSender:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5qX-xQ-4gC"/>
@@ -90,7 +90,6 @@
                             <constraint firstItem="C9l-Zm-ShH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="P4n-U1-24f"/>
                             <constraint firstItem="HSF-OR-tlb" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="8" id="PPx-9Y-lL3"/>
                             <constraint firstItem="Eu8-w8-PDE" firstAttribute="leading" secondItem="QBG-pt-kWx" secondAttribute="trailing" id="PdJ-H0-K9v"/>
-                            <constraint firstItem="W0A-TW-h7f" firstAttribute="width" secondItem="W0A-TW-h7f" secondAttribute="height" multiplier="7:1" id="QZF-j5-Z9N"/>
                             <constraint firstItem="Dth-tc-1kE" firstAttribute="top" secondItem="W0A-TW-h7f" secondAttribute="bottom" constant="36.5" id="Uog-HP-Vgt"/>
                             <constraint firstItem="QBG-pt-kWx" firstAttribute="bottom" secondItem="Eu8-w8-PDE" secondAttribute="bottom" id="WJv-Ur-cpP"/>
                             <constraint firstItem="HSF-OR-tlb" firstAttribute="leading" secondItem="Eu8-w8-PDE" secondAttribute="leading" id="cGa-Tu-a2G"/>
@@ -100,7 +99,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="W0A-TW-h7f" secondAttribute="trailing" constant="16" id="hTL-hP-bqI"/>
                             <constraint firstItem="px8-D1-30J" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="k9x-jf-pnP"/>
                             <constraint firstItem="Dth-tc-1kE" firstAttribute="height" secondItem="umD-pa-5BM" secondAttribute="height" id="kCD-Q8-5WW"/>
-                            <constraint firstItem="W0A-TW-h7f" firstAttribute="top" secondItem="C9l-Zm-ShH" secondAttribute="bottom" constant="8" id="moA-1k-pXA"/>
+                            <constraint firstItem="W0A-TW-h7f" firstAttribute="top" secondItem="C9l-Zm-ShH" secondAttribute="bottom" id="moA-1k-pXA"/>
                             <constraint firstItem="QBG-pt-kWx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="neW-gm-5Qm"/>
                             <constraint firstItem="umD-pa-5BM" firstAttribute="top" secondItem="W0A-TW-h7f" secondAttribute="bottom" constant="8" id="oCE-EG-sxw"/>
                             <constraint firstItem="QBG-pt-kWx" firstAttribute="top" secondItem="Eu8-w8-PDE" secondAttribute="top" id="p7Q-uC-xXU"/>

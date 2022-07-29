@@ -10,8 +10,8 @@ import UIKit
 
 class Rack: TileContainer {
     
-    init(view: TileContainerView) {
-        super.init(dimensions: [Constants.NTILES], view: view)
+    init(view: TileContainerView, displayTiles: Bool = false) {
+        super.init(dimensions: [Constants.NTILES], view: view, displayTiles: displayTiles)
     }
 
 }

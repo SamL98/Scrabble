@@ -19,6 +19,8 @@ class ViewController: UIViewController, TileDelegate, UIScrollViewDelegate {
     @IBOutlet weak var myScoreLabel: UILabel!
     @IBOutlet weak var cpuScoreLabel: UILabel!
     
+    var currentWordScoreView: WordScoreView!
+    
     var bag: Bag!
     var game: Game!
     
@@ -48,6 +50,17 @@ class ViewController: UIViewController, TileDelegate, UIScrollViewDelegate {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        
+        let w: CGFloat = 20.0,
+            h: CGFloat = 20.0,
+            padding: CGFloat = 2.5
+        
+        currentWordScoreView = WordScoreView(frame: CGRect(x: boardView.frame.maxX - (w + padding),
+                                                            y: boardView.frame.minY + padding,
+                                                            width: w,
+                                                            height: h))
+        currentWordScoreView.backgroundColor = UIColor.white
+        currentWordScoreView.layer.cornerRadius = 5.0
         
         let showNumbers = false
         
@@ -134,9 +147,19 @@ class ViewController: UIViewController, TileDelegate, UIScrollViewDelegate {
         coords.y += boardView.frame.minY
 
         // resize will change the origin so move it again. gross
-        tile.view!.move(to: coords)
-        resize(tileView: tile.view!)
-        tile.view!.move(to: coords)
+        if tile.view == nil {
+            let tileFrame = CGRect(origin: coords,
+                                   size: CGSize(width: boardView.tileSize,
+                                                height: boardView.tileSize))
+            
+            tile.view = TileView(container: boardView, tile: tile, frame: tileFrame)
+            view.addSubview(tile.view!)
+        }
+        else {
+            tile.view!.move(to: coords)
+            resize(tileView: tile.view!)
+            tile.view!.move(to: coords)
+        }
     }
     
     @objc
@@ -186,10 +209,27 @@ class ViewController: UIViewController, TileDelegate, UIScrollViewDelegate {
             
         case .ended:
             snap(tileView: tileView)
+            displayCurrentWordScore()
             break
             
         default:
             break
+        }
+    }
+    
+    func displayCurrentWordScore() {
+        if game.board.isValid(firstMove: game.firstMove) {
+            let newWords = game.board.getNewWords(),
+                newScore = game.board.score(newWords)
+            
+            currentWordScoreView.displayScore(newScore)
+            
+            if currentWordScoreView.superview == nil {
+                view.addSubview(currentWordScoreView)
+            }
+        }
+        else {
+            currentWordScoreView.removeFromSuperview()
         }
     }
     
@@ -280,6 +320,8 @@ class ViewController: UIViewController, TileDelegate, UIScrollViewDelegate {
         
         myScoreLabel.text = "Me:  \(userPlayer.score)"
         cpuScoreLabel.text = "CPU: \(cpuPlayer.score)"
+        
+        currentWordScoreView.removeFromSuperview()
     }
     
     @IBAction func recallTiles(sender: UIButton) {
@@ -302,6 +344,8 @@ class ViewController: UIViewController, TileDelegate, UIScrollViewDelegate {
                 }
             }
         }
+        
+        currentWordScoreView.removeFromSuperview()
     }
 
 }

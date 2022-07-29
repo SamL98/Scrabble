@@ -116,6 +116,8 @@ class Game: NSObject {
         // We need to re-set the placed tiles in the game board.
         for tile in placedTiles {
             board.set(tile: tile, at: tile.idxs, place: false)
+            board.wordMultipliers[tile.idxs] = 1
+            board.letterMultipliers[tile.idxs] = 1
         }
         
         firstMove = false

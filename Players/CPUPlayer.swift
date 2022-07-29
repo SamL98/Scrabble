@@ -19,7 +19,7 @@ class CPUPlayer: Player {
     }
     
     override func move() {
-        printRack()
+        //printRack()
         
         broadcastSelf()
         
